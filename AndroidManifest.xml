@@ -3,8 +3,9 @@
           package="org.aerogear.otp.android.demo"
           android:versionCode="1"
           android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="4"/>
-    <application android:label="@string/app_name">
+    <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
+    <application android:label="@string/app_name"
+                 android:theme="@style/Theme.Sherlock.Light">
         <activity android:name="MyActivity"
                   android:label="@string/app_name">
             <intent-filter>
