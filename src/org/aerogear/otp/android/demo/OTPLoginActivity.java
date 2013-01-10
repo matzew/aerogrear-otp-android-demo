@@ -1,5 +1,7 @@
 package org.aerogear.otp.android.demo;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,7 +17,7 @@ public class OTPLoginActivity extends SherlockActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.login);
 
         final TextView username = (TextView) findViewById(R.id.username);
         final TextView password = (TextView) findViewById(R.id.password);
@@ -26,18 +28,21 @@ public class OTPLoginActivity extends SherlockActivity {
                 String user = username.getText().toString();
                 String pass = password.getText().toString();
                 OTPApplication application = (OTPApplication) getApplication();
+                final ProgressDialog dialog = ProgressDialog.show(OTPLoginActivity.this, "Wait...", "Loging", true, true);
                 application.login(user, pass, new Callback<HeaderAndBody>() {
                     @Override
                     public void onSuccess(HeaderAndBody data) {
-                        Toast.makeText(OTPLoginActivity.this, "Ok. You are logged :)", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(OTPLoginActivity.this, OTPDisplay.class));
                     }
 
                     @Override
                     public void onFailure(Exception e) {
                         Log.e("Login", "An error occurrence", e);
                         Toast.makeText(OTPLoginActivity.this, "Login failed", Toast.LENGTH_SHORT).show();
+                        dialog.dismiss();
                     }
                 });
+
             }
         });
     }
