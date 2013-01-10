@@ -30,6 +30,7 @@
             android:text="Username:"/>
 
     <EditText
+            android:id="@+id/username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="jonh"/>
@@ -40,12 +41,14 @@
             android:text="Password:"/>
 
     <EditText
+            android:id="@+id/password"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:text="joe"/>
 
     <Button
+            android:id="@+id/login"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Login"/>
