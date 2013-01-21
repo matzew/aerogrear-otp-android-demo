@@ -45,7 +45,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
-            android:text="joe"/>
+            android:text="123"/>
 
     <Button
             android:id="@+id/login"
