@@ -3,48 +3,38 @@ package org.aerogear.otp.android.demo;
 import android.app.Application;
 import android.os.AsyncTask;
 import android.util.Log;
-import com.google.gson.JsonObject;
-import org.aerogear.android.Callback;
-import org.aerogear.android.http.HeaderAndBody;
-import org.aerogear.android.impl.http.HttpRestProvider;
+import org.jboss.aerogear.android.Callback;
+import org.jboss.aerogear.android.authentication.AuthenticationConfig;
+import org.jboss.aerogear.android.authentication.AuthenticationModule;
+import org.jboss.aerogear.android.authentication.impl.Authenticator;
+import org.jboss.aerogear.android.http.HeaderAndBody;
+import org.jboss.aerogear.android.impl.http.HttpRestProvider;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class OTPApplication extends Application {
 
-    public void login(final String username, final String password, final Callback<HeaderAndBody> callback) {
-        new AsyncTask<Void, Void, Void>() {
-            HeaderAndBody result = null;
-            Exception exception = null;
+    private AuthenticationModule authModule;
 
-            @Override
-            protected Void doInBackground(Void... params) {
-                try {
-                    URL authenticationURL = new URL("http://controller-aerogear.rhcloud.com/aerogear-controller-demo/login");
+    @Override
+    public void onCreate() {
+        super.onCreate();
 
-                    JsonObject loginInformations = new JsonObject();
-                    loginInformations.addProperty("aeroGearUser.id", username);
-                    loginInformations.addProperty("aeroGearUser.password", password);
+        try {
 
-                    new HttpRestProvider(authenticationURL).post(loginInformations.toString());
-                } catch (Exception e) {
-                    Log.e("OTP", "error login", e);
-                    exception = e;
-                }
-                return null;
-            }
+            URL baseURL = new URL("http://controller-aerogear.rhcloud.com/aerogear-controller-demo");
+            Authenticator auth = new Authenticator(baseURL);
+            AuthenticationConfig config = new AuthenticationConfig();
+            authModule = auth.auth("login", config);
 
-            @Override
-            protected void onPostExecute(Void ignore) {
-                super.onPostExecute(ignore);
-                if (exception == null) {
-                    callback.onSuccess(result);
-                } else {
-                    callback.onFailure(exception);
-                }
-            }
+        } catch (MalformedURLException e) {
+            Log.e("AeroGear-OTP-Android-Demo", e.getMessage(), e);
+        }
+    }
 
-        }.execute();
+    public void login(String username, String password, Callback<HeaderAndBody> callback) {
+        authModule.login(username, password, callback);
     }
 
 }

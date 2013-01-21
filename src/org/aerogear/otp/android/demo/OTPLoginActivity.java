@@ -9,8 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
-import org.aerogear.android.Callback;
-import org.aerogear.android.http.HeaderAndBody;
+import org.jboss.aerogear.android.Callback;
+import org.jboss.aerogear.android.http.HeaderAndBody;
 
 public class OTPLoginActivity extends SherlockActivity {
 
@@ -42,11 +42,8 @@ public class OTPLoginActivity extends SherlockActivity {
                         dialog.dismiss();
                     }
                 });
-
             }
         });
     }
-
-
 
 }
