@@ -33,7 +33,7 @@
             android:id="@+id/username"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="jonh"/>
+                android:text="john"/>
 
     <TextView
             android:layout_width="fill_parent"
