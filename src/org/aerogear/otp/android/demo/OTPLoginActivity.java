@@ -1,5 +1,6 @@
 package org.aerogear.otp.android.demo;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.actionbarsherlock.app.SherlockActivity;
 import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.http.HeaderAndBody;
 
-public class OTPLoginActivity extends SherlockActivity {
+public class OTPLoginActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

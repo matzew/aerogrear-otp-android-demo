@@ -24,5 +24,18 @@
             android:layout_width="fill_parent"
             android:layout_height="50dp"/>
 
+    <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="?android:attr/progressBarStyleHorizontal"/>
+
+    <Button
+            android:id="@+id/logout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"/>
+
+
 </LinearLayout>
 

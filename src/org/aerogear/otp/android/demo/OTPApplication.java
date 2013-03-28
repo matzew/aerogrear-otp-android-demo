@@ -1,14 +1,12 @@
 package org.aerogear.otp.android.demo;
 
 import android.app.Application;
-import android.os.AsyncTask;
 import android.util.Log;
 import org.jboss.aerogear.android.Callback;
 import org.jboss.aerogear.android.authentication.AuthenticationConfig;
 import org.jboss.aerogear.android.authentication.AuthenticationModule;
 import org.jboss.aerogear.android.authentication.impl.Authenticator;
 import org.jboss.aerogear.android.http.HeaderAndBody;
-import org.jboss.aerogear.android.impl.http.HttpRestProvider;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -23,6 +21,7 @@ public class OTPApplication extends Application {
 
         try {
 
+//            URL baseURL = new URL("http://10.10.10.5:8080/aerogear-controller-demo");
             URL baseURL = new URL("http://controller-aerogear.rhcloud.com/aerogear-controller-demo");
             Authenticator auth = new Authenticator(baseURL);
             AuthenticationConfig config = new AuthenticationConfig();
@@ -37,4 +36,16 @@ public class OTPApplication extends Application {
         authModule.login(username, password, callback);
     }
 
+    public void retrieveSecretKey(Callback<String> callback) {
+//        try {
+//            HttpRestProvider provider = new HttpRestProvider(new URL(""));
+//            provider.
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    public void logout(Callback<Void> callback) {
+        authModule.logout(callback);
+    }
 }
