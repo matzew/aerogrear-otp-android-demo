@@ -6,13 +6,15 @@
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="16"/>
     <application android:label="@string/app_name" android:name=".OTPApplication"
                  android:icon="@drawable/ic_launcher" android:theme="@android:style/Theme.Holo.Light">
-        <activity android:name=".OTPLoginActivity" android:label="@string/app_name">
+        <activity android:name=".OTPMainActivity" android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".OTPDisplay" android:label="@string/app_name" />
+        <activity android:name=".OTPLoginActivity"  android:label="@string/app_name" />
+        <activity android:name=".OTPQRCodeActivity" android:label="@string/app_name" />
+        <activity android:name=".OTPDisplay"        android:label="@string/app_name" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
