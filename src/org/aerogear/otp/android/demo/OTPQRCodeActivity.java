@@ -1,6 +1,8 @@
 package org.aerogear.otp.android.demo;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -34,11 +36,30 @@ public class OTPQRCodeActivity extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == this.requestCode) {
             if (resultCode == RESULT_OK) {
-                String contents = data.getStringExtra("SCAN_RESULT");
-                Toast.makeText(this, contents, Toast.LENGTH_LONG).show();
+                String otpauth = data.getStringExtra("SCAN_RESULT");
+                Intent intent = new Intent(this, OTPDisplay.class);
+                intent.putExtra("otpauth", otpauth);
+                startActivity(intent);
             } else {
-                Toast.makeText(this, "An error occurred while trying to read the QRCode", Toast.LENGTH_LONG).show();
+                showAlertDialog();
             }
         }
     }
+
+    private void showAlertDialog() {
+        new AlertDialog.Builder(this)
+            .setTitle("Aviso")
+            .setMessage("An error occurred while trying to read the QRCode. Do you want to try again?")
+            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface di, int arg) {
+                    scanBarcode();
+                }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface di, int arg) {
+                    finish();
+                }
+            }).show();
+    }
+
 }

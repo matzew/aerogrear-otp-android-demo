@@ -1,43 +1,69 @@
 package org.aerogear.otp.android.demo;
 
 import android.app.Activity;
+import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import org.jboss.aerogear.android.Callback;
-
-import static android.view.View.OnClickListener;
+import android.os.CountDownTimer;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import org.jboss.aerogear.security.otp.Totp;
 
 public class OTPDisplay extends Activity {
+
+    private TextView totpDisplay;
+    private TextView nameDisplay;
+    private ProgressBar progressBar;
+
+    private String name = "";
+    private String secret;
+
+    private Totp totp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.display);
 
-        final OTPApplication application = (OTPApplication) getApplication();
+        parseOtpPath();
 
-//        application.retrieveSecretKey();
+        findComponents();
 
-        Button logout = (Button) findViewById(R.id.logout);
-        logout.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                application.logout(new Callback<Void>() {
-                    @Override
-                    public void onSuccess(Void data) {
-                        finish();
-                    }
+        updateOTP();
 
-                    @Override
-                    public void onFailure(Exception e) {
-                        Log.e("Logout", "An error occurrence", e);
-                        Toast.makeText(OTPDisplay.this, "Logout failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
+        new CountDownTimer(30000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                progressBar.setProgress((int) (millisUntilFinished / 1000));
             }
-        });
-        
+
+            @Override
+            public void onFinish() {
+                updateOTP();
+                this.start();
+            }
+        }.start();
+
     }
+
+    private void parseOtpPath() {
+        String otpauth = getIntent().getStringExtra("otpauth");
+        Uri otpUri = Uri.parse(otpauth);
+
+        name   = otpUri.getQueryParameter("");
+        secret = otpUri.getQueryParameter("secret");
+
+        totp = new Totp(secret);
+    }
+
+    private void findComponents() {
+        totpDisplay = (TextView)    findViewById(R.id.totp);
+        nameDisplay = (TextView)    findViewById(R.id.name);
+        progressBar = (ProgressBar) findViewById(R.id.progress);
+    }
+
+    private void updateOTP() {
+        nameDisplay.setText(name);
+        totpDisplay.setText(totp.now());
+    }
+
 }
