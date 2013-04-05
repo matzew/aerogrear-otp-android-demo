@@ -11,9 +11,9 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <proguard.skip>true</proguard.skip>
-        <android.avd>15</android.avd>
         <debug>true</debug>
+        <android.avd>9</android.avd>
+        <proguard.skip>true</proguard.skip>
     </properties>
 
     <dependencies>
@@ -70,9 +70,6 @@
                     <run>
                         <debug>${debug}</debug>
                     </run>
-                    <sdk>
-                        <platform>16</platform>
-                    </sdk>
                     <emulator>
                         <avd>${android.avd}</avd>
                     </emulator>
